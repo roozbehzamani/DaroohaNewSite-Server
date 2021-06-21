@@ -86,7 +86,7 @@ namespace DaroohaNewSite.Presentation.Controllers.Site.V1.Auth
                 var creaatedUser = await _userManager.FindByNameAsync(userToCreate.UserName);
                 await _userManager.AddToRolesAsync(creaatedUser, new[] { "User" });
                 var userForReturn = _mapper.Map<UserForDetailedDTO>(userToCreate);
-
+                //ftghfgh
                 return CreatedAtRoute("GetUser", new
                 {
                     controller = "User",
