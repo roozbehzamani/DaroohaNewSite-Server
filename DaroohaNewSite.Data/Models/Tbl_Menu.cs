@@ -16,7 +16,7 @@ namespace DaroohaNewSite.Data.Models
         }
 
         [Required]
-        public string subMenuName { get; set; }
+        public string MenuName { get; set; }
         //===========================================================
         [Required]
         public string MenuImage { get; set; }

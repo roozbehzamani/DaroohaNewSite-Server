@@ -61,6 +61,7 @@ namespace DaroohaNewSite.Presentation.Helpers
             CreateMap<Tbl_OrderItem, OrderItemToReturnDto>();
             //Menu
             CreateMap<Tbl_Menu, NewMenusForReturnDto>();
+            CreateMap<Tbl_Menu, AllMenuForReturnDto>();
             // Product
             CreateMap<Tbl_Product, ProductForReturnDto>();
             CreateMap<Tbl_ProductImage, ProductImagesForReturnDto>();
