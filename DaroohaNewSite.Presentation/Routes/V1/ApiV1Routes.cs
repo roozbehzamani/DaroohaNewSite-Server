@@ -189,9 +189,6 @@ namespace DaroohaNewSite.Presentation.Routes.V1
             //api/v1/site/app/Menu
             //GET
             public const string AllMenuList = BaseSiteApp + "/Menu/AllMenu";
-            //api/v1/site/app/SubMenu/{id}
-            //GET
-            public const string GetSubMenu = BaseSiteApp + "/SubMenu/{id}";
         }
         #endregion
 
