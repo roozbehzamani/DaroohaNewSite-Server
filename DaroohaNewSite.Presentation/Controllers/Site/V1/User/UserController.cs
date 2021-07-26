@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using DaroohaNewSite.Presentation.Helpers.Filters;
 using DaroohaNewSite.Presentation.Routes.V1;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Linq;
 
 namespace DaroohaNewSite.Presentation.Controllers.Site.V1.User
 {
@@ -93,11 +95,56 @@ namespace DaroohaNewSite.Presentation.Controllers.Site.V1.User
         }
 
         [AllowAnonymous]
-        [HttpGet(ApiV1Routes.Users.GetUsers)]
-        public async Task<IActionResult> GetUsers()
+        [HttpPost(ApiV1Routes.Users.GetUsers)]
+        public async Task<IActionResult> GetUsers(dtott dto)
         {
-            var user = await _db.UserRepository.GetAllAsync();
-            return Ok(user);
+            var users = (await _db.UserRepository.GetAllAsync()).ToList();
+            switch (dto.Flag)
+            {
+                case 1:
+                    {
+                        var usersForReturn = new List<UserForDetailedDTO>();
+                        foreach (var item in users)
+                        {
+                            usersForReturn.Add(_mapper.Map<UserForDetailedDTO>(item));
+                        }
+                        return Ok(usersForReturn);
+                    }
+                case 2:
+                    {
+                        var usersForReturn = _mapper.Map<UserForDetailedDTO>
+                            (users.Where(p => p.Id == dto.Id).Single());
+                        return Ok(usersForReturn);
+                    }
+                case 3:
+                    {
+                        var user = users.First();
+                        var rand = new Random();
+                        user.Id = rand.Next(500, 20000).ToString();
+                        user.UserName = "111111111111";
+                        users.Add(user);
+                        var usersForReturn = _mapper.Map<UserForDetailedDTO>(user);
+                        return Ok(usersForReturn);
+                    }
+                case 4:
+                    {
+                        var us = users.Where(p => p.Id == dto.Id).Single();
+                        us.FirstName = "33333333333333";
+
+                        var usersForReturn = _mapper.Map<UserForDetailedDTO>(us);
+                        return Ok(usersForReturn);
+                    }
+                case 5:
+                    {
+                        var us = users.Where(p => p.Id == dto.Id).Single();
+                        users.Remove(us);
+                        return Ok();
+                    }
+                default:
+                    return Ok("");
+            }
+
+
         }
     }
 }
